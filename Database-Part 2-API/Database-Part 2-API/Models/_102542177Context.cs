@@ -15,6 +15,7 @@ namespace Database_Part_2_API.Models
         {
         }
 
+        public virtual DbSet<ClientAccountAndAuthorisedAccount> ClientAccountAndAuthorisedAccount2177 { get; set; }
         public virtual DbSet<Accountpayment2177> Accountpayment2177 { get; set; }
         public virtual DbSet<Authorisedperson2177> Authorisedperson2177 { get; set; }
         public virtual DbSet<Clientaccount2177> Clientaccount2177 { get; set; }
@@ -25,6 +26,8 @@ namespace Database_Part_2_API.Models
         public virtual DbSet<Orderline2177> Orderline2177 { get; set; }
         public virtual DbSet<Product2177> Product2177 { get; set; }
         public virtual DbSet<Purchaseorder2177> Purchaseorder2177 { get; set; }
+        
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

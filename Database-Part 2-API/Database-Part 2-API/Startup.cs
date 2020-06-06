@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Database_Part_2_API
 {
@@ -29,7 +30,13 @@ namespace Database_Part_2_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<_102542177Context>(opt => opt.UseSqlServer("Server=db.swinswd.com;Database=102542177;User ID=102542177;Password=jH99q6e#;Trusted_Connection=False;Encrypt=False;"));
-            services.AddControllers();
+            /*
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });*/
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            
+            // services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -14,7 +14,7 @@ namespace Database_Part_2_API.Controllers
     public class Clientaccount2177Controller : ControllerBase
     {
         private readonly _102542177Context _context;
-
+        
         public Clientaccount2177Controller(_102542177Context context)
         {
             _context = context;
@@ -29,16 +29,22 @@ namespace Database_Part_2_API.Controllers
 
         // GET: api/Clientaccount2177/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clientaccount2177>> GetClientaccount2177(int id)
+        public async Task<List<ClientAccountAndAuthorisedAccount>> GetClientaccount2177(int id)
         {
-            var clientaccount2177 = await _context.Clientaccount2177.FindAsync(id);
+            // var clientaccount2177 = await _context.Clientaccount2177.FindAsync(id);
 
-            if (clientaccount2177 == null)
-            {
+            // var account = await Task.FromResult(_context.Clientaccount2177.Include(x => x.Authorisedperson2177).ToList());
+
+            var account = await Task.FromResult(_context.ClientAccountAndAuthorisedAccount2177.FromSqlRaw("EXEC GET_CLIENT_ACCOUNT_BY_ID @PACCOUNTID = " + id).ToList());
+
+            /*
+            if (account == null)
+            {   
                 return NotFound();
             }
+            */
 
-            return clientaccount2177;
+            return account;
         }
 
         // PUT: api/Clientaccount2177/5
