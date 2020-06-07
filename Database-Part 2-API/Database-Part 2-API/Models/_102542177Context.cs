@@ -15,10 +15,10 @@ namespace Database_Part_2_API.Models
         {
         }
 
-        public virtual DbSet<ClientAccountAndAuthorisedAccount> ClientAccountAndAuthorisedAccount2177 { get; set; }
         public virtual DbSet<Accountpayment2177> Accountpayment2177 { get; set; }
         public virtual DbSet<Authorisedperson2177> Authorisedperson2177 { get; set; }
         public virtual DbSet<Clientaccount2177> Clientaccount2177 { get; set; }
+        public virtual DbSet<Clientauthorisedaccounts2177> Clientauthorisedaccounts2177 { get; set; }
         public virtual DbSet<Generalledger2177> Generalledger2177 { get; set; }
         public virtual DbSet<Inventory2177> Inventory2177 { get; set; }
         public virtual DbSet<Location2177> Location2177 { get; set; }
@@ -26,8 +26,6 @@ namespace Database_Part_2_API.Models
         public virtual DbSet<Orderline2177> Orderline2177 { get; set; }
         public virtual DbSet<Product2177> Product2177 { get; set; }
         public virtual DbSet<Purchaseorder2177> Purchaseorder2177 { get; set; }
-        
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -129,6 +127,63 @@ namespace Database_Part_2_API.Models
                 entity.Property(e => e.Creditlimit)
                     .HasColumnName("CREDITLIMIT")
                     .HasColumnType("money");
+            });
+
+            modelBuilder.Entity<Clientauthorisedaccounts2177>(entity =>
+            {
+                entity.HasKey(e => new { e.Userid, e.Accountid })
+                    .HasName("PK__CLIENTAU__AA6830EAFE4ACF36");
+
+                entity.ToTable("CLIENTAUTHORISEDACCOUNTS2177");
+
+                entity.Property(e => e.Userid).HasColumnName("USERID");
+
+                entity.Property(e => e.Accountid).HasColumnName("ACCOUNTID");
+
+                entity.Property(e => e.Acctname)
+                    .IsRequired()
+                    .HasColumnName("ACCTNAME")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Balance)
+                    .HasColumnName("BALANCE")
+                    .HasColumnType("money");
+
+                entity.Property(e => e.Creditlimit)
+                    .HasColumnName("CREDITLIMIT")
+                    .HasColumnType("money");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasColumnName("EMAIL")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Firstname)
+                    .IsRequired()
+                    .HasColumnName("FIRSTNAME")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("PASSWORD")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Surname)
+                    .IsRequired()
+                    .HasColumnName("SURNAME")
+                    .HasMaxLength(100);
+
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.Clientauthorisedaccounts2177)
+                    .HasForeignKey(d => d.Accountid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__CLIENTAUT__ACCOU__65D7BC2E");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Clientauthorisedaccounts2177)
+                    .HasForeignKey(d => d.Userid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__CLIENTAUT__USERI__66CBE067");
             });
 
             modelBuilder.Entity<Generalledger2177>(entity =>

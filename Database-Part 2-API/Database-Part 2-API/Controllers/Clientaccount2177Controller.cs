@@ -29,13 +29,13 @@ namespace Database_Part_2_API.Controllers
 
         // GET: api/Clientaccount2177/5
         [HttpGet("{id}")]
-        public async Task<List<ClientAccountAndAuthorisedAccount>> GetClientaccount2177(int id)
+        public async Task<List<Clientauthorisedaccounts2177>> GetClientaccount2177(int id)
         {
             // var clientaccount2177 = await _context.Clientaccount2177.FindAsync(id);
 
             // var account = await Task.FromResult(_context.Clientaccount2177.Include(x => x.Authorisedperson2177).ToList());
 
-            var account = await Task.FromResult(_context.ClientAccountAndAuthorisedAccount2177.FromSqlRaw("EXEC GET_CLIENT_ACCOUNT_BY_ID @PACCOUNTID = " + id).ToList());
+            var account = await Task.FromResult(_context.Clientauthorisedaccounts2177.FromSqlRaw("EXEC GET_CLIENT_ACCOUNT_BY_ID @PACCOUNTID = " + id).ToList());
 
             /*
             if (account == null)

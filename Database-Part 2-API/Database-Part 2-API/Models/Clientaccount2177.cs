@@ -9,6 +9,7 @@ namespace Database_Part_2_API.Models
         {
             Accountpayment2177 = new HashSet<Accountpayment2177>();
             Authorisedperson2177 = new HashSet<Authorisedperson2177>();
+            Clientauthorisedaccounts2177 = new HashSet<Clientauthorisedaccounts2177>();
         }
 
         public int Accountid { get; set; }
@@ -18,5 +19,6 @@ namespace Database_Part_2_API.Models
 
         public virtual ICollection<Accountpayment2177> Accountpayment2177 { get; set; }
         public virtual ICollection<Authorisedperson2177> Authorisedperson2177 { get; set; }
+        public virtual ICollection<Clientauthorisedaccounts2177> Clientauthorisedaccounts2177 { get; set; }
     }
 }
