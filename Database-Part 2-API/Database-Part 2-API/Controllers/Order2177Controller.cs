@@ -51,17 +51,21 @@ namespace Database_Part_2_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder2177(int id, Order2177 order2177)
+        public async Task<IActionResult> PutOrder2177(int id, Order2177 o)
         {
-            if (id != order2177.Orderid)
+            if (id != o.Orderid)
             {
                 return BadRequest();
             }
 
-            _context.Entry(order2177).State = EntityState.Modified;
+            _context.Entry(o).State = EntityState.Modified;
 
             try
             {
+
+                _context.Order2177.FromSqlRaw("EXEC FULLFILL_ORDER " +
+                    "@PORDERID = " + id + 
+                    ", @PACCOUNTID = " + o.Userid);
 
                 await _context.SaveChangesAsync();
             }

@@ -79,7 +79,7 @@ namespace Database_Part_2_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Accountpayment2177>> PostAccountpayment2177(Accountpayment2177 ap)
         {
-            _context.Accountpayment2177.Add(ap);
+  //          _context.Accountpayment2177.Add(ap);
             try
             {
                 _context.Database.ExecuteSqlRaw("EXEC MAKE_ACCOUNT_PAYMENT " +
