@@ -132,7 +132,7 @@ namespace Database_Part_2_API.Models
             modelBuilder.Entity<Clientauthorisedaccounts2177>(entity =>
             {
                 entity.HasKey(e => new { e.Userid, e.Accountid })
-                    .HasName("PK__CLIENTAU__AA6830EAFE4ACF36");
+                    .HasName("PK__CLIENTAU__AA6830EAA26D1DD4");
 
                 entity.ToTable("CLIENTAUTHORISEDACCOUNTS2177");
 
@@ -177,13 +177,13 @@ namespace Database_Part_2_API.Models
                     .WithMany(p => p.Clientauthorisedaccounts2177)
                     .HasForeignKey(d => d.Accountid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CLIENTAUT__ACCOU__65D7BC2E");
+                    .HasConstraintName("FK__CLIENTAUT__ACCOU__1022FBB5");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Clientauthorisedaccounts2177)
                     .HasForeignKey(d => d.Userid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CLIENTAUT__USERI__66CBE067");
+                    .HasConstraintName("FK__CLIENTAUT__USERI__11171FEE");
             });
 
             modelBuilder.Entity<Generalledger2177>(entity =>
@@ -277,9 +277,7 @@ namespace Database_Part_2_API.Models
                     .HasColumnName("DATETIMECREATED")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Datetimedispatched)
-                    .HasColumnName("DATETIMEDISPATCHED")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.Datetimedispatched).HasColumnName("DATETIMEDISPATCHED");
 
                 entity.Property(e => e.Shippingaddress)
                     .IsRequired()

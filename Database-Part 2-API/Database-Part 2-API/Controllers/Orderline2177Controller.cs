@@ -83,11 +83,10 @@ namespace Database_Part_2_API.Controllers
             try
             {
 
-                _context.Orderline2177.FromSqlRaw("EXEC ADD_PRODUCT_TO_ORDER @PORDERID = " + ol.Orderid + 
+                await _context.Database.ExecuteSqlRawAsync("EXEC ADD_PRODUCT_TO_ORDER @PORDERID = " + ol.Orderid + 
                     ", @PPRODIID = " + ol.Productid +
                     ", @PQTY = " + ol.Quantity +
                     ", @DISCOUNT = " + ol.Discount);
-                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -106,21 +105,27 @@ namespace Database_Part_2_API.Controllers
 
         // DELETE: api/Orderline2177/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Orderline2177>> DeleteOrderline2177(int id, int prodid)
+        public async Task<int> DeleteOrderline2177(Orderline2177 ol )
         {
             // var orderline2177 = await _context.Orderline2177.FindAsync(id);
 
-            var order = await Task.FromResult(_context.Orderline2177.FromSqlRaw("EXEC REMOVE_PRODUCT_FROM_ORDER " +
-                "@PORDERID = " + id + ", @PPRODID = " + prodid).ToList());
+            var order = await _context.Database.ExecuteSqlRawAsync("EXEC REMOVE_PRODUCT_FROM_ORDER " +
+                "@PORDERID = " + ol.Orderid + ", @PPRODIID = " + ol.Productid);
+            /*
             if (order == null)
             {
                 return NotFound();
+            }*/
+            if (order == 0)
+            {
+                return -1;
             }
 
-            // _context.Orderline2177.Remove(orderline2177);
-            await _context.SaveChangesAsync();
 
-            return order[0];
+            // _context.Orderline2177.Remove(orderline2177);
+            // await _context.SaveChangesAsync();
+
+            return 1;
         }
 
         private bool Orderline2177Exists(int id)

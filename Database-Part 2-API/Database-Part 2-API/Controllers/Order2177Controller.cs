@@ -53,21 +53,20 @@ namespace Database_Part_2_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder2177(int id, Order2177 o)
         {
+            
             if (id != o.Orderid)
             {
                 return BadRequest();
             }
 
-            _context.Entry(o).State = EntityState.Modified;
+            // _context.Entry(o).State = EntityState.Modified;
 
             try
             {
 
-                _context.Order2177.FromSqlRaw("EXEC FULLFILL_ORDER " +
+                await _context.Database.ExecuteSqlRawAsync("EXEC FULLFILL_ORDER " +
                     "@PORDERID = " + id + 
                     ", @PACCOUNTID = " + o.Userid);
-
-                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
